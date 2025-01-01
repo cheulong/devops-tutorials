@@ -1,0 +1,5 @@
+print(type("Hello World!"))
+print(type(1+3))
+print(type(10/3))
+print(type(10//3))
+print(10//3)
