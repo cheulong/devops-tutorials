@@ -10,5 +10,10 @@ if service_check == 0:
 else:
     print("The service is not running.")
     print("Starting the service...")
-    subprocess.call(["systemctl", "start", svc])
+    try:
+        subprocess.check_output(["systemctl", "start", svc])
+    except subprocess.CalledProcessError as e:
+        print("Error starting the service")
+        print(e)
+        exit(1)
     subprocess.call(check_cmd)
