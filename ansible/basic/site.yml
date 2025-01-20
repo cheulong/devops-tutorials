@@ -4,19 +4,28 @@
    become: true
    pre_tasks:
  
-   - name: install updates (CentOS)
+   - name: update repository index (CentOS)
      tags: always
      dnf:
-       update_only: yes
        update_cache: yes
+     changed_when: false
      when: ansible_distribution == "CentOS"
  
-   - name: install updates (Ubuntu)
+   - name: update repository index (Ubuntu)
      tags: always
      apt:
-       upgrade: dist
        update_cache: yes
+     changed_when: false
      when: ansible_distribution == "Ubuntu"
+ 
+ - hosts: all
+   become: true
+   tasks:
+ 
+   - name: add ssh key for simone
+     authorized_key:
+       user: simone
+       key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAe7/ofWLNBq3+fRn3UmgAizdicLs9vcS4Oj8VSOD1S/ ansible"
  
  - hosts: workstations
    become: true
@@ -79,7 +88,7 @@
      service:
        name: httpd
        state: restarted
-     when: httpd.changed 
+     when: httpd.changed    
  
    - name: copy html file for site
      tags: apache,apache,apache2,httpd
@@ -118,12 +127,3 @@
      package:
        name: samba
        state: latest
-Support Linux Learning
-Support Learn Linux TV and get yourself a nice gift by visiting the official merch shop!
-
-
-
-YouTube
-YOUTUBE
-
-
