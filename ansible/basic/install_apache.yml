@@ -1,5 +1,4 @@
  ---
-
  - hosts: all
    become: true
    tasks:
@@ -17,3 +16,4 @@
      apt:
        name: libapache2-mod-php
        state: latest
+
